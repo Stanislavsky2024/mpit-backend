@@ -6,3 +6,34 @@ generator client {
 datasource db {
   provider = "postgresql"
 }
+
+model User {
+  id        String   @id @default(uuid())
+  email     String   @unique
+  password  String
+  createdAt DateTime @default(now()) @map("created_at")
+
+  @@map("users")
+}
+
+model Category {
+  id          String @id @default(uuid())
+  name        String
+  description String
+  items       Item[]
+
+  @@map("categories")
+}
+
+model Item {
+  id              String   @id @default(uuid())
+  categoryId      String
+  category        Category @relation(fields: [categoryId], references: [id], onDelete: Cascade)
+  characteristics Json
+  name            String
+  imageUrl        String
+  description     String
+  price           Int
+
+  @@map("items")
+}
