@@ -20,15 +20,15 @@ model Category {
   id          String @id @default(uuid())
   name        String
   description String
-  items       Item[]
+  items       Item[] @relation(name: "CategoryToItem")
 
   @@map("categories")
 }
 
 model Item {
   id              String   @id @default(uuid())
-  categoryId      String
-  category        Category @relation(fields: [categoryId], references: [id], onDelete: Cascade)
+  categoryId      String?
+  category        Category? @relation(name: "CategoryToItem", fields: [categoryId], references: [id], onDelete: Cascade)
   characteristics Json
   name            String
   imageUrl        String
