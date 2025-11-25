@@ -19,7 +19,7 @@ export class AuthService {
   private readonly JWT_ACCESS_TOKEN_TTL: string;
   private readonly JWT_REFRESH_TOKEN_TTL: string;
 
-  private readonly COOKIE_DOMAIN: string; // .google.com
+  private readonly COOKIE_DOMAIN: string;
 
   constructor(
     private readonly prismaService: PrismaService,

@@ -1,4 +1,3 @@
-/* eslint-disable @typescript-eslint/require-await */
 import {
   Controller,
   Post,
@@ -57,7 +56,7 @@ export class AuthController {
   @Authorization()
   @Get('@me')
   @HttpCode(HttpStatus.OK)
-  async me(@Authorized() user: User) {
+  me(@Authorized() user: User) {
     return user;
   }
 }
