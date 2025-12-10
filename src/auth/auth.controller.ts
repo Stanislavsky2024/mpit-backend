@@ -55,7 +55,7 @@ export class AuthController {
   @Authorization()
   @Get('/@me')
   @HttpCode(HttpStatus.OK)
-  me(@Authorized() user: string) {
+  me(@Authorized('id') user: string) {
     return user;
   }
 }

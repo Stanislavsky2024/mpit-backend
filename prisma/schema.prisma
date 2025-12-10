@@ -30,24 +30,34 @@ model Review {
 }
 
 model Category {
-  id       String    @id @default(ulid())
-  name     String
-  products Product[]
+  id            String        @id @default(ulid())
+  name          String        @unique
+  subcategories Subcategory[]
 
   @@map("categories")
 }
 
+model Subcategory {
+  id           String    @id @default(ulid())
+  name         String    @unique
+  products     Product[]
+  category     Category  @relation(fields: [categoryName], references: [name])
+  categoryName String
+
+  @@map("subcategories")
+}
+
 model Product {
-  id          String   @id @default(ulid())
-  name        String
-  description String
-  price       Int
-  discount    Int
-  imageUrl    String
-  categoryId  String
-  category    Category @relation(fields: [categoryId], references: [id])
-  userId      String
-  user        User     @relation(fields: [userId], references: [id])
+  id              String      @id @default(ulid())
+  name            String
+  description     String
+  price           Int
+  discount        Int
+  imageUrl        String
+  subcategoryName String
+  subcategory     Subcategory @relation(fields: [subcategoryName], references: [name])
+  userId          String
+  user            User        @relation(fields: [userId], references: [id])
 
   @@map("products")
 }
