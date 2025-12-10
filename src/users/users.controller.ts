@@ -1,5 +1,14 @@
-import { Controller, Get, HttpCode, HttpStatus, Param } from '@nestjs/common';
+import {
+  Body,
+  Controller,
+  Get,
+  HttpCode,
+  HttpStatus,
+  Param,
+  Post,
+} from '@nestjs/common';
 import { UsersService } from './users.service';
+import { CredentialsDto } from './dto/credentials.dto';
 
 @Controller('users')
 export class UsersController {
@@ -15,5 +24,14 @@ export class UsersController {
   @HttpCode(HttpStatus.OK)
   async getSubcategoriesByCategory(@Param('id') id: string) {
     return await this.usersService.getUserById(id);
+  }
+
+  @Post('/:id')
+  @HttpCode(HttpStatus.OK)
+  async changeUserCredentials(
+    @Param('id') id: string,
+    @Body() dto: CredentialsDto,
+  ) {
+    return await this.usersService.changeUserCredentials(id, dto);
   }
 }
